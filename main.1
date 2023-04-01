@@ -1,0 +1,85 @@
+#include <iostream>
+using namespace std;
+
+const int MAX_SIZE = 100;
+
+class Matrix {
+private:
+    int size;
+    int arr[MAX_SIZE][MAX_SIZE];
+
+public:
+    Matrix() {
+        size = 0;
+        for (int i = 0; i < MAX_SIZE; i++) {
+            for (int j = 0; j < MAX_SIZE; j++) {
+                arr[i][j] = 0;
+            }
+        }
+    }
+
+    Matrix(int n) {
+        size = n;
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                arr[i][j] = 0;
+            }
+        }
+    }
+
+    friend ostream& operator<<(ostream& os, const Matrix& m) {
+        for (int i = 0; i < m.size; i++) {
+            for (int j = 0; j < m.size; j++) {
+                os << m.arr[i][j] << " ";
+            }
+            os << endl;
+        }
+        return os;
+    }
+
+    int& operator()(int i, int j) {
+        return arr[i][j];
+    }
+
+    void input() {
+        cout << "Enter the elements of the matrix:" << endl;
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                cin >> arr[i][j];
+            }
+        }
+    }
+
+    int getMinDiagonal() {
+        int min = arr[0][0];
+        for (int i = 1; i < size; i++) {
+            if (arr[i][i] < min) {
+                min = arr[i][i];
+            }
+        }
+        return min;
+    }
+
+    int getMaxDiagonal() {
+        int max = arr[0][0];
+        for (int i = 1; i < size; i++) {
+            if (arr[i][i] > max) {
+                max = arr[i][i];
+            }
+        }
+        return max;
+    }
+};
+
+int main() {
+    Matrix m(3);
+    m.input();
+
+    cout << "Matrix:" << endl;
+    cout << m;
+
+    cout << "The minimum element on the main diagonal: " << m.getMinDiagonal() << endl;
+    cout << "The maximum element on the main diagonal: " << m.getMaxDiagonal() << endl;
+
+    return 0;
+}
